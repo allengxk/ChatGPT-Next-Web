@@ -1,38 +1,41 @@
+# Docker Compose 文件版本
 version: "3.9"
 services:
+  # 主服务 - 不使用代理
   chatgpt-next-web:
-    profiles: [ "no-proxy" ]
-    container_name: chatgpt-next-web
-    image: yidadaa/chatgpt-next-web
+    profiles: [ "no-proxy" ]  # 不使用代理的profile
+    container_name: chatgpt-next-web  # 容器名称
+    image: yidadaa/chatgpt-next-web  # 使用的镜像
     ports:
-      - 3000:3000
+      - 3000:3000  # 端口映射：主机3000端口映射到容器3000端口
     environment:
-      - OPENAI_API_KEY=$OPENAI_API_KEY
-      - GOOGLE_API_KEY=$GOOGLE_API_KEY
-      - CODE=$CODE
-      - BASE_URL=$BASE_URL
-      - OPENAI_ORG_ID=$OPENAI_ORG_ID
-      - HIDE_USER_API_KEY=$HIDE_USER_API_KEY
-      - DISABLE_GPT4=$DISABLE_GPT4
-      - ENABLE_BALANCE_QUERY=$ENABLE_BALANCE_QUERY
-      - DISABLE_FAST_LINK=$DISABLE_FAST_LINK
-      - OPENAI_SB=$OPENAI_SB
+      - OPENAI_API_KEY=$OPENAI_API_KEY  # OpenAI API密钥
+      - GOOGLE_API_KEY=$GOOGLE_API_KEY  # Google API密钥
+      - CODE=$CODE  # 访问密码
+      - BASE_URL=$BASE_URL  # API基础地址
+      - OPENAI_ORG_ID=$OPENAI_ORG_ID  # OpenAI组织ID
+      - HIDE_USER_API_KEY=$HIDE_USER_API_KEY  # 是否隐藏用户API密钥
+      - DISABLE_GPT4=$DISABLE_GPT4  # 是否禁用GPT-4
+      - ENABLE_BALANCE_QUERY=$ENABLE_BALANCE_QUERY  # 是否启用余额查询
+      - DISABLE_FAST_LINK=$DISABLE_FAST_LINK  # 是否禁用快速链接
+      - OPENAI_SB=$OPENAI_SB  # OpenAI沙盒模式
 
+  # 代理服务 - 使用代理
   chatgpt-next-web-proxy:
-    profiles: [ "proxy" ]
-    container_name: chatgpt-next-web-proxy
-    image: yidadaa/chatgpt-next-web
+    profiles: [ "proxy" ]  # 使用代理的profile
+    container_name: chatgpt-next-web-proxy  # 容器名称
+    image: yidadaa/chatgpt-next-web  # 使用的镜像
     ports:
       - 3000:3000
     environment:
-      - OPENAI_API_KEY=$OPENAI_API_KEY
-      - GOOGLE_API_KEY=$GOOGLE_API_KEY
-      - CODE=$CODE
-      - PROXY_URL=$PROXY_URL
-      - BASE_URL=$BASE_URL
-      - OPENAI_ORG_ID=$OPENAI_ORG_ID
-      - HIDE_USER_API_KEY=$HIDE_USER_API_KEY
-      - DISABLE_GPT4=$DISABLE_GPT4
-      - ENABLE_BALANCE_QUERY=$ENABLE_BALANCE_QUERY
-      - DISABLE_FAST_LINK=$DISABLE_FAST_LINK
-      - OPENAI_SB=$OPENAI_SB
+      - OPENAI_API_KEY=$OPENAI_API_KEY  # OpenAI API密钥
+      - GOOGLE_API_KEY=$GOOGLE_API_KEY  # Google API密钥
+      - CODE=$CODE  # 访问密码
+      - PROXY_URL=$PROXY_URL  # 代理服务器地址
+      - BASE_URL=$BASE_URL  # API基础地址
+      - OPENAI_ORG_ID=$OPENAI_ORG_ID  # OpenAI组织ID
+      - HIDE_USER_API_KEY=$HIDE_USER_API_KEY  # 是否隐藏用户API密钥
+      - DISABLE_GPT4=$DISABLE_GPT4  # 是否禁用GPT-4
+      - ENABLE_BALANCE_QUERY=$ENABLE_BALANCE_QUERY  # 是否启用余额查询
+      - DISABLE_FAST_LINK=$DISABLE_FAST_LINK  # 是否禁用快速链接
+      - OPENAI_SB=$OPENAI_SB  # OpenAI沙盒模式
